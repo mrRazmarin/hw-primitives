@@ -46,6 +46,7 @@ public class Main {
     private static String hintTax(int earning, int spending) {
         String valueTaxOne = "Мы советуем вам УСН доходы";
         String valueTaxTwo = "Мы советуем вам УСН доходы минус расходы";
+        String valueEqualsBoth = "Можете выбрать любую систему налогообложения:\n- УСН доходы\n- УСН доходы минус расходы";
 
         int taxEarningResult = taxEarnings(earning);
         int taxEarningMinusSpendingResult = taxEarningsMinusSpending(earning, spending);
@@ -55,7 +56,9 @@ public class Main {
         if (taxEarningResult < taxEarningMinusSpendingResult){
             return String.format("%s\nВаш налог составит: %d\nНалог на другой системе: %d\nЭкономия: %d",
                     valueTaxOne, taxEarningResult, taxEarningMinusSpendingResult, economy);
-        }else {
+        } else if (taxEarningResult == taxEarningMinusSpendingResult) {
+            return String.format("%s\nНалог по обоим системам составит: %d\n", valueEqualsBoth, taxEarningResult);
+        } else {
             return String.format("%s\nВаш налог составит: %d\nНалог на другой системе: %d\nЭкономия: %d",
                     valueTaxTwo, taxEarningMinusSpendingResult, taxEarningResult, economy);
         }
